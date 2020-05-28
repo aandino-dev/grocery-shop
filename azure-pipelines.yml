@@ -9,7 +9,8 @@ trigger:
 - feature/unit-test
 
 pool:
-  vmImage: 'macos-latest'
+#  vmImage: 'macos-latest'
+  vmImage: 'vs2017-win2016'
 
 variables:
   buildConfiguration: 'Release'
