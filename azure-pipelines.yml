@@ -48,7 +48,7 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '$(Release)'
+    SourceFolder: '$(outputDirectory)'
     Contents: '*.apk'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
