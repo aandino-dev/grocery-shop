@@ -99,6 +99,10 @@ namespace GroceryShop.ViewModels
             {
                 ValidationMessage = "A username is required."
             });
+            //UserName.Validations.Add(new EmailRule<string>
+            //{
+            //    ValidationMessage = "Username or password are incorrect."
+            //});
             Password.Validations.Add(new IsNotNullOrEmptyRule<string>
             {
                 ValidationMessage = "A password is required."

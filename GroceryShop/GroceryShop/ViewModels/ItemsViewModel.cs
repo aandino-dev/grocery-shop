@@ -60,7 +60,7 @@ namespace GroceryShop.ViewModels
 
             try
             {
-                CartCount++;
+                //CartCount++;
                 MessagingCenter.Send(this, "AddToBag", (Item)item);
             }
             catch (Exception ex)
