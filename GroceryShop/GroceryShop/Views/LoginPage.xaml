@@ -7,7 +7,7 @@
              x:Class="GroceryShop.Views.LoginPage">
     <ContentPage.Content>
         <StackLayout>
-            <Image Source="login.png" Aspect="AspectFit" HeightRequest="100"/>
+            <Image Source="login.png" Margin="-10,-15,-1,-1" />
             <Frame Margin="20, -1, 20, 10">
                 <StackLayout>
                     <Entry Placeholder="Email" PlaceholderColor="{StaticResource TextNormal}"/>

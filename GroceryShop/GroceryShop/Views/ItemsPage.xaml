@@ -11,16 +11,11 @@
             <Label Text="Categories" TextColor="{StaticResource TextDark}" HorizontalOptions="StartAndExpand"/>
             <Label Text="All" TextColor="#646464" HorizontalOptions="End"/>
         </StackLayout>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <ImageButton Grid.Column="0" Source="categoryOne.png"/>
-            <ImageButton Grid.Column="1" Source="categoryTwo.png"/>
-            <ImageButton Grid.Column="2" Source="categoryThree.png"/>
-        </Grid>
+        <StackLayout Orientation="Horizontal">
+            <ImageButton Source="categoryOne.png" HorizontalOptions="StartAndExpand"/>
+            <ImageButton Source="categoryTwo.png" HorizontalOptions="CenterAndExpand"/>
+            <ImageButton Source="categoryThree.png" HorizontalOptions="EndAndExpand"/>
+        </StackLayout>
         <Label Text="Vegetables" TextColor="{StaticResource TextDark}"/>
         <RefreshView IsRefreshing="{Binding IsBusy, Mode=TwoWay}" Command="{Binding LoadItemsCommand}">
             <CollectionView x:Name="ItemsCollectionView" ItemsSource="{Binding Items}" BackgroundColor="{StaticResource Background}">
