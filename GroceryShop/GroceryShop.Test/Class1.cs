@@ -1,4 +1,7 @@
-﻿using System;
+﻿using GroceryShop.Services;
+using GroceryShop.ViewModels;
+using System;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace GroceryShop.Test
@@ -12,6 +15,24 @@ namespace GroceryShop.Test
             var actual = 1;
 
             Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public async Task AddingItemToBagShouldRaisePropertyChanged()
+        {
+            bool invoked = false;
+            var dataStore = new MockDataStore();
+            var itemsViewModel = new ItemsViewModel(dataStore);
+
+            itemsViewModel.PropertyChanged += (sender, e) =>
+            {
+                if (e.PropertyName.Equals("CartCount"))
+                    invoked = true;
+            };
+
+            itemsViewModel.AddToBagCommand?.Execute(null);
+
+            Assert.True(invoked);
         }
     }
 }

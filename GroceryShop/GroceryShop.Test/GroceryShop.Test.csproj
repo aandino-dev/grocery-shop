@@ -12,4 +12,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GroceryShop\GroceryShop.csproj" />
+  </ItemGroup>
+
 </Project>
