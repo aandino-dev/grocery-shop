@@ -10,6 +10,8 @@ using Xamarin.Forms.Xaml;
 using GroceryShop.Models;
 using GroceryShop.Views;
 using GroceryShop.ViewModels;
+using GroceryShop.ApplicationObjects;
+using Autofac;
 
 namespace GroceryShop.Views
 {
@@ -24,7 +26,7 @@ namespace GroceryShop.Views
         {
             InitializeComponent();
 
-            BindingContext = viewModel = new ItemsViewModel();
+            BindingContext = viewModel = AppContainer.Container.Resolve<ItemsViewModel>();
         }
 
         async void OnItemSelected(object sender, EventArgs args)

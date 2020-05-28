@@ -3,17 +3,19 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using GroceryShop.Services;
 using GroceryShop.Views;
+using GroceryShop.ApplicationObjects;
 
 namespace GroceryShop
 {
     public partial class App : Application
     {
 
-        public App()
+        public App(AppSetup setup)
         {
             InitializeComponent();
 
-            DependencyService.Register<MockDataStore>();
+            AppContainer.Container = setup.CreateContainer();
+
             MainPage = new LoginPage();
         }
 

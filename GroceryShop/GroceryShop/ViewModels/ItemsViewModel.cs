@@ -7,6 +7,7 @@ using Xamarin.Forms;
 
 using GroceryShop.Models;
 using GroceryShop.Views;
+using GroceryShop.Services;
 
 namespace GroceryShop.ViewModels
 {
@@ -15,10 +16,13 @@ namespace GroceryShop.ViewModels
         public ObservableCollection<Item> Items { get; set; }
         public Command LoadItemsCommand { get; set; }
 
-        public ItemsViewModel()
+        private IDataStore<Item> DataStore;
+
+        public ItemsViewModel(IDataStore<Item> dataStore)
         {
             Title = "Browse";
             Items = new ObservableCollection<Item>();
+            DataStore = dataStore;
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
             MessagingCenter.Subscribe<NewItemPage, Item>(this, "AddItem", async (obj, item) =>
