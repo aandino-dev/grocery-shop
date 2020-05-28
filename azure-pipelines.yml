@@ -30,7 +30,6 @@ steps:
     configuration: '$(buildConfiguration)'
     msbuildVersionOption: latest
 
-steps:
 - task: DotNetCoreCLI@2
   displayName: 'dotnet test'
   inputs:
