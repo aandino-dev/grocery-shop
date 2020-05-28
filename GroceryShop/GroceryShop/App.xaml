@@ -8,6 +8,7 @@
             <Color x:Key="PrimaryTintColor">#FFFFFF</Color>
             <Color x:Key="Background">#FCFCFC</Color>
             <Color x:Key="TextLight">#707070</Color>
+            <Color x:Key="TextNormal">#646464</Color>
             <Color x:Key="TextDark">#303030</Color>
             <Style TargetType="NavigationPage">
                 <Setter Property="BarBackgroundColor" Value="{StaticResource NavigationPrimary}" />
