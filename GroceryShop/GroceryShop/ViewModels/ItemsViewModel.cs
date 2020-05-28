@@ -28,14 +28,7 @@ namespace GroceryShop.ViewModels
             Items = new ObservableCollection<Item>();
             DataStore = dataStore;
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
-            AddToBagCommand = new Command(async () => await ExecuteAddToBagCommand());
-
-            MessagingCenter.Subscribe<NewItemPage, Item>(this, "AddItem", async (obj, item) =>
-            {
-                var newItem = item as Item;
-                Items.Add(newItem);
-                await DataStore.AddItemAsync(newItem);
-            });
+            AddToBagCommand = new Command(async (item) => await ExecuteAddToBagCommand(item));
         }
 
         async Task ExecuteLoadItemsCommand()
@@ -61,13 +54,14 @@ namespace GroceryShop.ViewModels
             }
         }
 
-        async Task ExecuteAddToBagCommand()
+        async Task ExecuteAddToBagCommand(object item)
         {
             IsBusy = true;
 
             try
             {
                 CartCount++;
+                MessagingCenter.Send(this, "AddToBag", (Item)item);
             }
             catch (Exception ex)
             {

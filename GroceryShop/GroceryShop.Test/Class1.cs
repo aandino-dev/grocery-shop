@@ -1,8 +1,10 @@
-﻿using GroceryShop.Services;
+﻿using GroceryShop.Models;
+using GroceryShop.Services;
 using GroceryShop.ViewModels;
 using System;
 using System.Security.Authentication;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 using Xunit;
 
 namespace GroceryShop.Test
@@ -34,6 +36,31 @@ namespace GroceryShop.Test
             itemsViewModel.AddToBagCommand?.Execute(null);
 
             Assert.True(invoked);
+        }
+
+        [Fact]
+        public void AddToBagCommandSendsAddItemMessageTest()
+        {
+            bool messageReceived = false;
+            var dataStore = new MockDataStore();
+            var itemsViewModel = new ItemsViewModel(dataStore);
+
+            MessagingCenter.Subscribe<ItemsViewModel, Item>(
+                this, "AddToBag", (sender, arg) =>
+                {
+                    messageReceived = true;
+                });
+            itemsViewModel.AddToBagCommand.Execute(null);
+
+            Assert.True(messageReceived);
+        }
+
+        [Fact]
+        public void CheckValidationFailsWhenWrongCredentials()
+        {
+            var mockAuthenticationService = new MockAuthenticationService();
+
+            Assert.Throws<AuthenticationException>(() => mockAuthenticationService.Login("foo", "papitas"));
         }
 
         [Fact]
@@ -96,14 +123,6 @@ namespace GroceryShop.Test
             loginViewModel.LoginCommand.Execute(null);
 
             Assert.False(loginViewModel.HasInvalidCredentials);
-        }
-
-        [Fact]
-        public void CheckValidationFailsWhenWrongCredentials()
-        {
-            var mockAuthenticationService = new MockAuthenticationService();
-
-            Assert.Throws<AuthenticationException>(() => mockAuthenticationService.Login("foo", "papitas"));
         }
     }
 }

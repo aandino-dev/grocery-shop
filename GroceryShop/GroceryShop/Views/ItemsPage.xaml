@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:d="http://xamarin.com/schemas/2014/forms/design" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="GroceryShop.Views.ItemsPage" Title="{Binding Title}" x:Name="BrowseItemsPage">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:d="http://xamarin.com/schemas/2014/forms/design" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="GroceryShop.Views.ItemsPage" Title="{Binding Title}" x:Name="itemsPage">
     <ContentPage.ToolbarItems>
         <!--<ToolbarItem Text="Add" Clicked="AddItem_Clicked" />-->
         <ToolbarItem IconImageSource="search.png" />
@@ -50,7 +50,9 @@
                                        HorizontalOptions="End"/>
                             </StackLayout>
                             <Button ImageSource="Icon.png" 
-                                Text="Add to Bag" 
+                                Text="Add to Bag"
+                                Command="{Binding BindingContext.AddToBagCommand, Source={x:Reference itemsPage}}"
+                                CommandParameter="{Binding .}"
                                 BackgroundColor="{StaticResource Primary}" 
                                 TextColor="{StaticResource PrimaryTintColor}" 
                                 FontSize="Small"
