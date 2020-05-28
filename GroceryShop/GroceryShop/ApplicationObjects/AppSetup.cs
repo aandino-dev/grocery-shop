@@ -19,8 +19,11 @@ namespace GroceryShop.ApplicationObjects
 
         protected virtual void RegisterDependencies(ContainerBuilder cb)
         {
-            cb.RegisterType<ItemsViewModel>().InstancePerDependency();
+            cb.RegisterType<MockAuthenticationService>().As<IAuthenticationService>().SingleInstance();
             cb.RegisterType<MockDataStore>().As<IDataStore<Item>>().SingleInstance();
+
+            cb.RegisterType<LoginViewModel>().InstancePerDependency();
+            cb.RegisterType<ItemsViewModel>().InstancePerDependency();
         }
     }
 }

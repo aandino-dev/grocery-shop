@@ -1,6 +1,7 @@
 ﻿using GroceryShop.Services;
 using GroceryShop.ViewModels;
 using System;
+using System.Security.Authentication;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -33,6 +34,76 @@ namespace GroceryShop.Test
             itemsViewModel.AddToBagCommand?.Execute(null);
 
             Assert.True(invoked);
+        }
+
+        [Fact]
+        public void CheckValidationFailsWhenOnlyUsernameHasData()
+        {
+            var mockAuthenticationService = new MockAuthenticationService();
+            var loginViewModel = new LoginViewModel(mockAuthenticationService);
+            loginViewModel.UserName.Value = "foo";
+
+            bool isValid = loginViewModel.Validate();
+
+            Assert.False(isValid);
+            Assert.NotNull(loginViewModel.UserName.Value);
+            Assert.Null(loginViewModel.Password.Value);
+            Assert.True(loginViewModel.UserName.IsValid);
+            Assert.False(loginViewModel.Password.IsValid);
+            Assert.Empty(loginViewModel.UserName.Errors);
+            Assert.NotEmpty(loginViewModel.Password.Errors);
+        }
+
+        [Fact]
+        public void CheckValidationFailsWhenOnlyPasswordHasData()
+        {
+            var mockAuthenticationService = new MockAuthenticationService();
+            var loginViewModel = new LoginViewModel(mockAuthenticationService);
+            loginViewModel.Password.Value = "bar";
+
+            bool isValid = loginViewModel.Validate();
+
+            Assert.False(isValid);
+            Assert.NotNull(loginViewModel.Password.Value);
+            Assert.Null(loginViewModel.UserName.Value);
+            Assert.True(loginViewModel.Password.IsValid);
+            Assert.False(loginViewModel.UserName.IsValid);
+            Assert.Empty(loginViewModel.Password.Errors);
+            Assert.NotEmpty(loginViewModel.UserName.Errors);
+        }
+
+        [Fact]
+        public void CheckValidationFailsWhenBothCredentialsHasData()
+        {
+            var mockAuthenticationService = new MockAuthenticationService();
+            var loginViewModel = new LoginViewModel(mockAuthenticationService);
+            loginViewModel.UserName.Value = "foo";
+            loginViewModel.Password.Value = "papitas";
+
+            loginViewModel.LoginCommand.Execute(null);
+
+            Assert.True(loginViewModel.HasInvalidCredentials);
+        }
+
+        [Fact]
+        public void CheckValidationPassWhenBothCredentialsHasData()
+        {
+            var mockAuthenticationService = new MockAuthenticationService();
+            var loginViewModel = new LoginViewModel(mockAuthenticationService);
+            loginViewModel.UserName.Value = "foo";
+            loginViewModel.Password.Value = "bar";
+
+            loginViewModel.LoginCommand.Execute(null);
+
+            Assert.False(loginViewModel.HasInvalidCredentials);
+        }
+
+        [Fact]
+        public void CheckValidationFailsWhenWrongCredentials()
+        {
+            var mockAuthenticationService = new MockAuthenticationService();
+
+            Assert.Throws<AuthenticationException>(() => mockAuthenticationService.Login("foo", "papitas"));
         }
     }
 }
