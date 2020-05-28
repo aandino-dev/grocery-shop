@@ -10,8 +10,9 @@
             <Image Source="login.png" Margin="-10,-15,-1,-1" />
             <Frame Margin="20, -1, 20, 10">
                 <StackLayout>
-                    <Entry Placeholder="Email" PlaceholderColor="{StaticResource TextNormal}"/>
-                    <Entry Placeholder="Password" PlaceholderColor="{StaticResource TextNormal}" IsPassword="True"/>
+                    <Entry Placeholder="Username" Text="{Binding UserName.Value}" PlaceholderColor="{StaticResource TextNormal}"/>
+                    <Entry Placeholder="Password" Text="{Binding Password.Value}" PlaceholderColor="{StaticResource TextNormal}" IsPassword="True"/>
+                    <Label Text="Incorrect username or password." TextColor="Red" IsVisible="{Binding HasInvalidCredentials, Mode=TwoWay}" />
                     <Button ImageSource="key.png" Text="Login" Clicked="Login_Clicked" BackgroundColor="{StaticResource Primary}" TextColor="{StaticResource PrimaryTintColor}" HeightRequest="36" CornerRadius="18" Padding="100,-1">
                         <Button.Triggers>
                             <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="True">
