@@ -5,6 +5,8 @@
 
 trigger:
 - master
+- develop
+- feature/unit-test
 
 pool:
   vmImage: 'macos-latest'
