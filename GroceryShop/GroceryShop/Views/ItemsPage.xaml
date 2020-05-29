@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:d="http://xamarin.com/schemas/2014/forms/design" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="GroceryShop.Views.ItemsPage" Title="{Binding Title}" x:Name="itemsPage">
+    <ContentPage.ToolbarItems>
+        <!--<ToolbarItem Text="Add" Clicked="AddItem_Clicked" />-->
+        <ToolbarItem IconImageSource="search.png" />
+        <ToolbarItem IconImageSource="cart.png" />
+    </ContentPage.ToolbarItems>
+    <StackLayout Padding="20,0">
+        <Image Source="Carousel1.png" Margin="-20,-1"/>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Categories" TextColor="{StaticResource TextDark}" HorizontalOptions="StartAndExpand"/>
+            <Label Text="All" TextColor="#646464" HorizontalOptions="End"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <ImageButton Source="categoryOne.png" HorizontalOptions="StartAndExpand"/>
+            <ImageButton Source="categoryTwo.png" HorizontalOptions="CenterAndExpand"/>
+            <ImageButton Source="categoryThree.png" HorizontalOptions="EndAndExpand"/>
+        </StackLayout>
+        <Label Text="Vegetables" TextColor="{StaticResource TextDark}"/>
+        <RefreshView IsRefreshing="{Binding IsBusy, Mode=TwoWay}" Command="{Binding LoadItemsCommand}">
+            <CollectionView x:Name="ItemsCollectionView" ItemsSource="{Binding Items}" BackgroundColor="{StaticResource Background}">
+                <d:CollectionView.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>First Item</x:String>
+                        <x:String>Second Item</x:String>
+                        <x:String>Third Item</x:String>
+                        <x:String>Fourth Item</x:String>
+                        <x:String>Fifth Item</x:String>
+                        <x:String>Sixth Item</x:String>
+                    </x:Array>
+                </d:CollectionView.ItemsSource>
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" 
+                                     Span="2"
+                                     HorizontalItemSpacing="8" 
+                                     VerticalItemSpacing="8"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Padding="10" BackgroundColor="White">
+                            <Image Source="{Binding Image}" />
+                            <Label Text="{Binding Name}" TextColor="{StaticResource TextDark}"/>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{Binding Description}" 
+                                       TextColor="{StaticResource TextLight}" 
+                                       HorizontalOptions="StartAndExpand" />
+                                <Label Text="{Binding Price, StringFormat='{0:C}'}" 
+                                       TextColor="{StaticResource TextDark}" 
+                                       FontAttributes="Bold" 
+                                       HorizontalOptions="End"/>
+                            </StackLayout>
+                            <Button ImageSource="Icon.png" 
+                                Text="Add to Bag"
+                                Command="{Binding BindingContext.AddToBagCommand, Source={x:Reference itemsPage}}"
+                                CommandParameter="{Binding .}"
+                                BackgroundColor="{StaticResource Primary}" 
+                                TextColor="{StaticResource PrimaryTintColor}" 
+                                FontSize="Small"
+                                CornerRadius="13" 
+                                HeightRequest="25" 
+                                Padding="15,0"
+                                HorizontalOptions="Center"/>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+    </StackLayout>
+
+</ContentPage>
